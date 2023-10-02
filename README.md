@@ -1,8 +1,13 @@
 
 # Blured Face in personal images
 
-I have implemented a code that detects face using haarcascade_frontalface and blurs the face of user in image.
+I have implemented a code that detects faces using haarcascade_frontalface and blurs the face of the user in the image.
 
+My own Image :)
+
+## Screenshots
+
+![App Screenshot](https://drive.google.com/file/d/1xBfvr6unwme_pxLq-pdJRCxn59YlMaKZ/view?usp=sharing)
 
 ## Documentation
 
