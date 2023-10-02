@@ -1,66 +1,51 @@
-#!/bin/bash
 
-# Create README file
-cat <<EOF > README.md
-# Image Face Pixelation
+# Blured Face in personal images
 
-This repository contains code that applies pixelation and blurring effects to faces detected in an image using OpenCV. The code utilizes the Haar cascade classifier for face detection and provides functions for blurring and pixelating the face regions.
+I have implemented a code that detects face using haarcascade_frontalface and blurs the face of user in image.
 
-## Prerequisites
 
-- Python 3.x
-- OpenCV
-- NumPy
+## Documentation
 
-## Installation
+The blur function takes an input image (img) and a kernel size factor (k). It calculates the height (h) and width (w) of the image, and then determines the kernel size (kh, kw) by dividing the height and width by the factor. If the calculated kernel size is even, it subtracts 1 to make it odd. Finally, it applies Gaussian blur to the image using the calculated kernel size and sigmaX=0, and returns the blurred image.
 
-1. Clone the repository:
+The pixelate_face function takes an input image (image) and the number of blocks (blocks) for pixelation. It divides the image into blocks x blocks regions by computing the x and y steps based on the width and height of the image. It then loops over these regions and for each region, it extracts the corresponding ROI (Region of Interest) from the image. It calculates the mean RGB values of the ROI and draws a rectangle with the mean RGB values over the ROI in the original image. This process effectively pixelates the face regions in the image. Finally, it returns the pixelated image.
 
-   \`\`\`shell
-   git clone https://github.com/your-username/your-repo.git
-   \`\`\`
+The code defines a variable factor which represents the kernel size factor for blurring.
 
-2. Install the required dependencies:
+It reads an image using cv2.imread from the specified file path.
 
-   \`\`\`shell
-   pip install opencv-python numpy
-   \`\`\`
+The image is converted to grayscale using cv2.cvtColor to simplify face detection.
 
-3. Download the Haar cascade classifier file (\`haarcascade_frontalface_default.xml\`) and place it in the same directory as the code file. You can find the file in the OpenCV GitHub repository: [haarcascade_frontalface_default.xml](https://github.com/opencv/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml)
+The Haar cascade classifier (haarcascade_frontalface_default.xml) is loaded using cv2.CascadeClassifier.
 
-## Usage
+The detectMultiScale function is used to detect faces in the grayscale image. It takes the grayscale image, a scale factor of 1.5, and a minimum number of neighbors of 5 as parameters. The function returns a list of rectangles representing the detected faces in the image.
 
-1. Modify the code file to specify the input image file path:
+For each detected face, the corresponding region is extracted from the original image using array slicing (image[y:y + h, x:x + w]). The blur and pixelate_face functions are then applied to the extracted face region to blur and pixelate it.
 
-   \`\`\`python
-   image = cv2.imread('path/to/your/image.jpg')
-   \`\`\`
+Finally, the modified image is displayed using cv2_imshow.
 
-2. Run the code:
 
-   \`\`\`shell
-   python your_code_file.py
-   \`\`\`
+![Logo](https://qph.cf2.quoracdn.net/main-qimg-28cadbd02699c25a88e5c78d73c7babc)
+![Logo](https://editor.analyticsvidhya.com/uploads/95103cv.png)
 
-   The code will detect faces in the image, pixelate the face regions, and display the modified image.
 
-## Customization
+## Roadmap
 
-- Kernel Size Factor: Adjust the \`factor\` variable to change the kernel size for blurring. Higher values result in stronger blurring effects.
+-Phase 1: Setting Up the Project
+   Create a new GitHub repository for the project.
+   Initialize the repository with a README file.
+   Clone the repository to your local machine.
+   Set up the project structure and file organization.
+-Phase 2: Dependencies and Environment Setup
+   Identify and list the necessary dependencies for the  code.
+   Create a virtual environment for the project.
+   Install the required dependencies (OpenCV, NumPy) in  the virtual environment.
+-Phase 3: Face Detection and Pixelation Functions
+   Implement the blur function to perform image blurring.
+   Implement the pixelate_face function to pixelate the  face regions.
+   Test the functions individually to ensure they are working correctly.
 
-- Number of Blocks: The \`blocks\` parameter in the \`pixelate_face\` function determines the number of blocks used for pixelation. Increasing the value will result in smaller pixelated regions.
+## Authors
 
-## License
+- [Hosein Madadi](https://www.github.com/h0ssn1)
 
-This project is licensed under the [MIT License](LICENSE).
-
-Feel free to use and modify the code according to your needs.
-
-## Acknowledgements
-
-The face detection and pixelation techniques utilized in this code are based on the OpenCV library. Special thanks to the OpenCV community for their contributions.
-
-If you find this code useful, please consider giving a star to this repository.
-EOF
-
-echo "README file generated successfully!"
